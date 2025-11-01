@@ -1,14 +1,13 @@
-package com.library.dto.user;
+package com.library.dto.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserRequestDTO {
-    private String name;
+@NoArgsConstructor
+public class LoginRequestDTO {
     private String login;
     private String password;
 }
