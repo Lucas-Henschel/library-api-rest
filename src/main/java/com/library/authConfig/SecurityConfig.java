@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,11 +37,11 @@ public class SecurityConfig {
     ) throws Exception {
         return http
             .csrf(AbstractHttpConfigurer::disable)
+            .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
             .authorizeHttpRequests(customizer -> {
                 customizer.requestMatchers(HttpMethod.GET, "/").permitAll();
                 customizer.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
-                customizer.requestMatchers(HttpMethod.GET, "/h2-console").permitAll();
-                customizer.requestMatchers("/error").permitAll();
+                customizer.requestMatchers("/h2-console/**").permitAll();
                 customizer.anyRequest().authenticated();
             })
             .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)

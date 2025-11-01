@@ -2,6 +2,7 @@ package com.library.authConfig;
 
 import com.auth0.jwt.exceptions.JWTCreationException;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.library.controller.exceptions.StandardError;
@@ -57,15 +58,15 @@ public class CustomFilter extends OncePerRequestFilter {
 
                 currentUserAuthentication.setCurrentUserEntity(currentUserEntityAuthentication);
                 SecurityContextHolder.getContext().setAuthentication(currentUserAuthentication);
-            } catch (JWTCreationException | ResponseStatusException exception) {
-                HttpStatus status = HttpStatus.UNAUTHORIZED;
-                List<String> errors = List.of("Sessão expirada");
+            } catch (JWTDecodeException | JWTCreationException | ResponseStatusException exception) {
+                HttpStatus status = HttpStatus.FORBIDDEN;
+                List<String> errors = List.of(exception.getMessage());
 
                 StandardError err = new StandardError(
                     Instant.now(),
                     status.value(),
                     errors,
-                    "Sessão expirada",
+                    exception.getMessage(),
                     request.getRequestURI()
                 );
 
