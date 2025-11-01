@@ -52,8 +52,7 @@ public class CustomFilter extends OncePerRequestFilter {
                 CurrentUserDTO currentUserEntityAuthentication = new CurrentUserDTO(
                     userEntity.getId(),
                     userEntity.getName(),
-                    userEntity.getLogin(),
-                    userEntity.getPassword()
+                    userEntity.getLogin()
                 );
 
                 currentUserAuthentication.setCurrentUserEntity(currentUserEntityAuthentication);

@@ -35,8 +35,7 @@ public class AuthService {
                 CurrentUserDTO currentUserEntityAuthentication = new CurrentUserDTO(
                     userEntity.get().getId(),
                     userEntity.get().getName(),
-                    userEntity.get().getLogin(),
-                    userEntity.get().getPassword()
+                    userEntity.get().getLogin()
                 );
 
                 currentUserAuthentication.setCurrentUserEntity(currentUserEntityAuthentication);

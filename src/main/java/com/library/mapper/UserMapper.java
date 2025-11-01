@@ -12,7 +12,6 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setLogin(entity.getLogin());
-        dto.setPassword(entity.getPassword());
 
         if (entity.getCreatedAt() != null) {
             dto.setCreatedAt(DateHelper.toIso8601(entity.getCreatedAt()));
