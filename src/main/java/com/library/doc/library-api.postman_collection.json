@@ -110,6 +110,24 @@
 					"response": []
 				},
 				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/user/2"
+					},
+					"response": []
+				},
+				{
 					"name": "create",
 					"request": {
 						"auth": {
@@ -150,7 +168,7 @@
 								"type": "text"
 							}
 						],
-						"url": "{{host}}/client/1"
+						"url": "{{host}}/user/1"
 					},
 					"response": []
 				},
@@ -177,7 +195,117 @@
 								}
 							}
 						},
-						"url": "{{host}}/client/1"
+						"url": "{{host}}/user/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "author",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/author"
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/author/2"
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Gabriel\",\r\n    \"birthDate\": \"2000-10-05\",\r\n    \"nationality\": \"BR\",\r\n    \"biography\": \"Biografia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/author"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/author/1"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Gabriel\",\r\n    \"birthDate\": \"2000-10-05\",\r\n    \"nationality\": \"BR\",\r\n    \"biography\": \"Biografia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/author/1"
 					},
 					"response": []
 				}
