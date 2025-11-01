@@ -3,6 +3,7 @@ package com.library.services;
 import com.library.authConfig.CurrentUserAuthentication;
 import com.library.dto.auth.CurrentUserDTO;
 import com.library.entities.UserEntity;
+import com.library.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class AuthService {
             }
         }
 
-        return null;
+        throw new ResourceNotFoundException("Login inválido");
     }
 
     public boolean logout(HttpServletRequest request, HttpServletResponse response) {
