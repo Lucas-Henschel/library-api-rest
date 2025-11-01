@@ -3,7 +3,6 @@ package com.library.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.library.dto.user.CreateUserRequestDTO;
 import com.library.dto.user.UpdateUserRequestDTO;
 import com.library.entities.UserEntity;
-import com.library.helpers.UpdateValue;
+import com.library.helpers.UpdateValueHelper;
 import com.library.repositories.UserRepository;
 import com.library.services.exceptions.DatabaseException;
 import com.library.services.exceptions.ResourceNotFoundException;
@@ -56,9 +55,9 @@ public class UserService {
     }
 
     private void updateData(UserEntity entity, UpdateUserRequestDTO updateUser) {
-        UpdateValue.updateIfNotNull(entity::setName, updateUser.getName());
-        UpdateValue.updateIfNotNull(entity::setLogin, updateUser.getLogin());
-        UpdateValue.updateIfNotNull(entity::setPassword, updateUser.getPassword());
+        UpdateValueHelper.updateIfNotNull(entity::setName, updateUser.getName());
+        UpdateValueHelper.updateIfNotNull(entity::setLogin, updateUser.getLogin());
+        UpdateValueHelper.updateIfNotNull(entity::setPassword, updateUser.getPassword());
     }
 
     public UserEntity create(CreateUserRequestDTO createUser) {

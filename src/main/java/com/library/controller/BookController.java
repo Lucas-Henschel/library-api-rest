@@ -1,8 +1,8 @@
 package com.library.controller;
 
-import com.library.dto.user.BookResponseDTO;
-import com.library.dto.user.CreateBookRequestDTO;
-import com.library.dto.user.UpdateBookRequestDTO;
+import com.library.dto.book.BookResponseDTO;
+import com.library.dto.book.CreateBookRequestDTO;
+import com.library.dto.book.UpdateBookRequestDTO;
 import com.library.entities.BookEntity;
 import com.library.mapper.BookMapper;
 import com.library.services.BookService;

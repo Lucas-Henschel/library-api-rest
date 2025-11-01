@@ -1,9 +1,9 @@
 package com.library.services;
 
-import com.library.dto.user.CreateBookRequestDTO;
-import com.library.dto.user.UpdateBookRequestDTO;
+import com.library.dto.book.CreateBookRequestDTO;
+import com.library.dto.book.UpdateBookRequestDTO;
 import com.library.entities.BookEntity;
-import com.library.helpers.UpdateValue;
+import com.library.helpers.UpdateValueHelper;
 import com.library.repositories.BookRepository;
 import com.library.services.exceptions.DatabaseException;
 import com.library.services.exceptions.ResourceNotFoundException;
@@ -46,11 +46,11 @@ public class BookService {
     }
 
     private void updateData(BookEntity entity, UpdateBookRequestDTO updateBook) {
-        UpdateValue.updateIfNotNull(entity::setTitle, updateBook.getTitle());
-        UpdateValue.updateIfNotNull(entity::setDescription, updateBook.getDescription());
-        UpdateValue.updateIfNotNull(entity::setPrice, updateBook.getPrice());
-        UpdateValue.updateIfNotNull(entity::setPages, updateBook.getPages());
-        UpdateValue.updateIfNotNull(entity::setLanguage, updateBook.getLanguage());
+        UpdateValueHelper.updateIfNotNull(entity::setTitle, updateBook.getTitle());
+        UpdateValueHelper.updateIfNotNull(entity::setDescription, updateBook.getDescription());
+        UpdateValueHelper.updateIfNotNull(entity::setPrice, updateBook.getPrice());
+        UpdateValueHelper.updateIfNotNull(entity::setPages, updateBook.getPages());
+        UpdateValueHelper.updateIfNotNull(entity::setLanguage, updateBook.getLanguage());
     }
 
     public BookEntity create(CreateBookRequestDTO createBook) {

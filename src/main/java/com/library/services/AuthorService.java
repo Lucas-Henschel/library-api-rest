@@ -4,7 +4,7 @@ import com.library.dto.author.CreateAuthorRequestDTO;
 import com.library.dto.author.UpdateAuthorRequestDTO;
 import com.library.entities.AuthorEntity;
 import com.library.helpers.DateHelper;
-import com.library.helpers.UpdateValue;
+import com.library.helpers.UpdateValueHelper;
 import com.library.repositories.AuthorRepository;
 import com.library.services.exceptions.DatabaseException;
 import com.library.services.exceptions.ResourceNotFoundException;
@@ -57,9 +57,9 @@ public class AuthorService {
     }
 
     private void updateData(AuthorEntity entity, UpdateAuthorRequestDTO updateAuthor) {
-        UpdateValue.updateIfNotNull(entity::setName, updateAuthor.getName());
-        UpdateValue.updateIfNotNull(entity::setBirthDate, DateHelper.dateStringToLocalDate(updateAuthor.getBirthDate()));
-        UpdateValue.updateIfNotNull(entity::setNationality, updateAuthor.getNationality());
-        UpdateValue.updateIfNotNull(entity::setBiography, updateAuthor.getBiography());
+        UpdateValueHelper.updateIfNotNull(entity::setName, updateAuthor.getName());
+        UpdateValueHelper.updateIfNotNull(entity::setBirthDate, DateHelper.dateStringToLocalDate(updateAuthor.getBirthDate()));
+        UpdateValueHelper.updateIfNotNull(entity::setNationality, updateAuthor.getNationality());
+        UpdateValueHelper.updateIfNotNull(entity::setBiography, updateAuthor.getBiography());
     }
 }

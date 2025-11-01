@@ -1,6 +1,6 @@
 package com.library.mapper;
 
-import com.library.dto.user.BookResponseDTO;
+import com.library.dto.book.BookResponseDTO;
 import com.library.entities.BookEntity;
 import com.library.helpers.DateHelper;
 

@@ -202,6 +202,116 @@
 			]
 		},
 		{
+			"name": "book",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/book"
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/book/2"
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Title example\",\r\n    \"description\": \"description\",\r\n    \"price\": 100.45,\r\n    \"pages\": 145,\r\n    \"language\": \"BR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/book"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/book/1"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Title example\",\r\n    \"description\": \"description\",\r\n    \"price\": 100.45,\r\n    \"pages\": 145,\r\n    \"language\": \"BR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/book/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "author",
 			"item": [
 				{
