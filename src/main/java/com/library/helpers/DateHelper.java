@@ -1,8 +1,7 @@
 package com.library.helpers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateHelper {
@@ -14,12 +13,9 @@ public class DateHelper {
         return dateTime.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
-    public static LocalDateTime dateStringToLocalDateTime(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime local = LocalDateTime.parse(dateString, formatter);
+    public static LocalDate dateStringToLocalDate(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        ZonedDateTime zoned = local.atZone(ZoneId.of("America/Sao_Paulo"));
-
-        return zoned.toLocalDateTime();
+        return LocalDate.parse(dateString, formatter);
     }
 }

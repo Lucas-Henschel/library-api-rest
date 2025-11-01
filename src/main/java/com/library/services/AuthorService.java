@@ -42,7 +42,7 @@ public class AuthorService {
     public AuthorEntity create(CreateAuthorRequestDTO createAuthor) {
         AuthorEntity author = new AuthorEntity();
         author.setName(createAuthor.getName());
-        author.setBirthDate(DateHelper.dateStringToLocalDateTime(createAuthor.getBirthDate()));
+        author.setBirthDate(DateHelper.dateStringToLocalDate(createAuthor.getBirthDate()));
         author.setNationality(createAuthor.getNationality());
         author.setBiography(createAuthor.getBiography());
 
@@ -58,7 +58,7 @@ public class AuthorService {
 
     private void updateData(AuthorEntity entity, UpdateAuthorRequestDTO updateAuthor) {
         UpdateValue.updateIfNotNull(entity::setName, updateAuthor.getName());
-        UpdateValue.updateIfNotNull(entity::setBirthDate, DateHelper.dateStringToLocalDateTime(updateAuthor.getBirthDate()));
+        UpdateValue.updateIfNotNull(entity::setBirthDate, DateHelper.dateStringToLocalDate(updateAuthor.getBirthDate()));
         UpdateValue.updateIfNotNull(entity::setNationality, updateAuthor.getNationality());
         UpdateValue.updateIfNotNull(entity::setBiography, updateAuthor.getBiography());
     }

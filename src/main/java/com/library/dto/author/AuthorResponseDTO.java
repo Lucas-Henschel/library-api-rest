@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class AuthorResponseDTO {
     private Long id;
     private String name;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     private String nationality;
     private String biography;
     private String createdAt;
