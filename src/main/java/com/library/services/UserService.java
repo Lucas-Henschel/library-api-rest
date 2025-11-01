@@ -3,6 +3,7 @@ package com.library.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +33,10 @@ public class UserService {
     public UserEntity findById(Long id) {
         Optional<UserEntity> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+    }
+
+    public Optional<UserEntity> findByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
     public void delete(Long id) {
