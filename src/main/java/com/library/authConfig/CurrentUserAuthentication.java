@@ -1,9 +1,7 @@
 package com.library.authConfig;
 
 import com.library.dto.auth.CurrentUserDTO;
-import com.library.services.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -14,13 +12,6 @@ import java.util.List;
 @Component
 public class CurrentUserAuthentication implements Authentication {
     private CurrentUserDTO currentUserEntity;
-
-    @Autowired
-    private UserService userService;
-
-    public CurrentUserDTO getCurrentUserEntity() {
-        return currentUserEntity;
-    }
 
     public void setCurrentUserEntity(CurrentUserDTO currentUserEntity) {
         this.currentUserEntity = currentUserEntity;
@@ -58,6 +49,6 @@ public class CurrentUserAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return this.currentUserEntity.getName();
+        return this.currentUserEntity.getLogin();
     }
 }

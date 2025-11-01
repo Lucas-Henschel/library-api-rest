@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
@@ -29,15 +30,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-        HttpSecurity http
+        HttpSecurity http,
+        CustomAuthenticationProvider customAuthenticationProvider,
+        CustomFilter customFilter
     ) throws Exception {
         return http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(customizer -> {
                 customizer.requestMatchers(HttpMethod.GET, "/").permitAll();
                 customizer.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                customizer.requestMatchers(HttpMethod.GET, "/h2-console").permitAll();
+                customizer.requestMatchers("/error").permitAll();
                 customizer.anyRequest().authenticated();
             })
+            .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
             .logout(logout -> logout
                 .logoutUrl("/auth/logout")
                 .addLogoutHandler(logoutHandler)
