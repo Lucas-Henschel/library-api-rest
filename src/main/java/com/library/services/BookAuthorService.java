@@ -34,8 +34,11 @@ public class BookAuthorService {
         return bookAuthorEntity.orElseThrow(() -> new ResourceNotFoundException("Vínculo do livro e autor não encontrado"));
     }
 
-    public BookAuthorEntity findByBookIdAndAuthorId(Long authorId, Long bookId) {
-        Optional<BookAuthorEntity> bookAuthorEntity = bookAuthorRepository.findByBookIdAndAuthorId(bookId, authorId);
+    public BookAuthorEntity findByBookIdAndAuthorId(Long bookId, Long authorId) {
+        bookService.findById(bookId);
+        authorService.findById(authorId);
+
+        Optional<BookAuthorEntity> bookAuthorEntity = bookAuthorRepository.findByAuthorIdAndBookId(authorId, bookId);
 
         return bookAuthorEntity.orElseThrow(() -> new ResourceNotFoundException("Vínculo do livro e autor não encontrado"));
     }

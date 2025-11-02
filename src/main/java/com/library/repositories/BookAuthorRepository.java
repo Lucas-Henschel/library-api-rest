@@ -15,7 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookAuthorRepository extends JpaRepository<BookAuthorEntity, Long> {
-    Optional<BookAuthorEntity> findByBookIdAndAuthorId(Long bookId, Long authorId);
+    @Query("""
+        SELECT ba FROM BookAuthorEntity ba
+        WHERE ba.book.id = :bookId
+          AND ba.author.id = :authorId
+    """)
+    Optional<BookAuthorEntity> findByAuthorIdAndBookId(@Param("authorId") Long authorId, @Param("bookId") Long bookId);
 
     @Query("""
         SELECT ba
