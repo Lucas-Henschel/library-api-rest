@@ -8,8 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.library.controller.exceptions.StandardError;
 import com.library.dto.auth.CurrentUserDTO;
 import com.library.entities.UserEntity;
+import com.library.helpers.WriteErrorResponse;
 import com.library.services.UserService;
 
+import com.library.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -57,21 +59,11 @@ public class CustomFilter extends OncePerRequestFilter {
 
                 currentUserAuthentication.setCurrentUserEntity(currentUserEntityAuthentication);
                 SecurityContextHolder.getContext().setAuthentication(currentUserAuthentication);
-            } catch (JWTDecodeException | JWTCreationException | ResponseStatusException exception) {
-                HttpStatus status = HttpStatus.FORBIDDEN;
-                List<String> errors = List.of(exception.getMessage());
-
-                StandardError err = new StandardError(
-                    Instant.now(),
-                    status.value(),
-                    errors,
-                    exception.getMessage(),
-                    request.getRequestURI()
-                );
-
-                response.setStatus(status.value());
-                response.setContentType("application/json");
-                response.getWriter().write(objectMapper.writeValueAsString(err));
+            } catch (JWTDecodeException | JWTCreationException | ResponseStatusException ex) {
+                WriteErrorResponse.writeErrorResponse(response, request, HttpStatus.FORBIDDEN, ex, objectMapper);
+                return;
+            } catch (ResourceNotFoundException ex) {
+                WriteErrorResponse.writeErrorResponse(response, request, HttpStatus.NOT_FOUND, ex, objectMapper);
                 return;
             }
         }
