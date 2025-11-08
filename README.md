@@ -37,13 +37,13 @@ cd library-rest-api
 
 3. Compile e execute a aplicação:
 
-mvn spring-boot:run
+LibraryApplication.java
 
 4. Acesse a aplicação:
 
 http://localhost:8080
 
-Estrutura do Projeto
+**Estrutura do Projeto**
 
 <img width="827" height="618" alt="image" src="https://github.com/user-attachments/assets/fc46eb63-9393-42f2-828f-cd267487795c" />
             
@@ -58,6 +58,7 @@ Método	Endpoint	Descrição
 - POST	/auth/logout	Realiza o logout da conta
 
 **Usuários**
+
 Método	Endpoint	Descrição
 - GET	/user	Lista todos os usuários
 - GET	/user/{id}	Retorna informações de um usuário
