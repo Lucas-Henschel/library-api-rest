@@ -17,7 +17,7 @@ A API foi desenvolvida com o intuito de demonstrar o funcionamento de uma aplica
 - **Java (21)**
 - **Spring Boot**
 - **Spring Web**
-- **Spring Security** (autenticação básica)
+- **Spring Security**
 - **Maven**
 
 **Pré-requisitos**
