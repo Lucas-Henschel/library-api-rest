@@ -45,30 +45,7 @@ http://localhost:8080
 
 Estrutura do Projeto
 
-src/
- └── main/
-      ├── java/com/library
-      │     ├── authConfig           # Configurações de autenticação e segurança
-      │     ├── controller           # Controladores REST
-      │     │     └── exceptions     # Exceções específicas de controladores
-      │     ├── doc                  # Documentação da API
-      │     ├── dto                  # Objetos de Transferência de Dados (Data Transfer Objects)
-      │     │     ├── auth
-      │     │     ├── authentication
-      │     │     ├── author
-      │     │     ├── book
-      │     │     ├── bookAuthor
-      │     │     └── user
-      │     ├── entities             # Classes de entidades do domínio
-      │     ├── helper               # Classes auxiliares e utilitárias
-      │     ├── mapper               # Conversão entre entidades e DTOs
-      │     ├── repositories         # Interfaces de repositórios (simulados ou mockados)
-      │     └── services             # Camada de serviços (regras de negócio)
-      │           └── exceptions     # Exceções específicas da camada de serviço
-      └── resources/
-            ├── application-dev.properties
-            ├── application-prod.properties
-            └── application.properties
+<img width="827" height="618" alt="image" src="https://github.com/user-attachments/assets/fc46eb63-9393-42f2-828f-cd267487795c" />
             
 **Endpoints Principais**
 A API segue o padrão REST e expõe endpoints para gerenciamento de recursos como autores, livros e usuários.
