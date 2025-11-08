@@ -48,47 +48,51 @@ Estrutura do Projeto
 <img width="827" height="618" alt="image" src="https://github.com/user-attachments/assets/fc46eb63-9393-42f2-828f-cd267487795c" />
             
 **Endpoints Principais**
+
 A API segue o padrão REST e expõe endpoints para gerenciamento de recursos como autores, livros e usuários.
 
 **Autenticação**
+
 Método	Endpoint	Descrição
-POST	/auth/login	Realiza login e retorna token de autenticação
-POST	/auth/logout	Realiza o logout da conta
+-POST	/auth/login	Realiza login e retorna token de autenticação
+-POST	/auth/logout	Realiza o logout da conta
 
 **Usuários**
 Método	Endpoint	Descrição
-GET	/user	Lista todos os usuários
-GET	/user/{id}	Retorna informações de um usuário
-POST	/user	Adiciona um novo usuário
-PUT	/user/{id}	Atualiza dados de um usuário
-DELETE	/user/{id}	Remove um usuário
+-GET	/user	Lista todos os usuários
+-GET	/user/{id}	Retorna informações de um usuário
+-POST	/user	Adiciona um novo usuário
+-PUT	/user/{id}	Atualiza dados de um usuário
+-DELETE	/user/{id}	Remove um usuário
 
 **Livros**
-Método	Endpoint	Descrição
 
-GET	/book	Lista todos os livros
-GET	/book/{id}	Retorna um livro específico
-POST	/book	Adiciona um novo livro
-PUT	/book/{id}	Atualiza dados de um livro
-DELETE	/book/{id}	Remove um livro
+Método	Endpoint	Descrição
+-GET	/book	Lista todos os livros
+-GET	/book/{id}	Retorna um livro específico
+-POST	/book	Adiciona um novo livro
+-PUT	/book/{id}	Atualiza dados de um livro
+-DELETE	/book/{id}	Remove um livro
 
 **Autores**
+
 Método	Endpoint	Descrição
-GET	/author	Lista todos os autores
-GET	/author/{id}	Retorna informações de um autor
-POST	/author	Cria um novo autor
-PUT	/author/{id}	Atualiza um autor
-DELETE	/author/{id}	Remove um autor
+-GET	/author	Lista todos os autores
+-GET	/author/{id}	Retorna informações de um autor
+-POST	/author	Cria um novo autor
+-PUT	/author/{id}	Atualiza um autor
+-DELETE	/author/{id}	Remove um autor
 
 **Autores e Livros**
+
 Método	Endpoint	Descrição
-GET	/bookAuthor	Lista todos os autores e os livros de cada autor
-GET	/bookAuthor/{id}	Retorna informações de um autor e seus livros
-GET	/bookAuthor/books/{authorId}	Retorna os livros de um autor usando seu ID
-GET	/bookAuthor/authors/{bookId}	Retorna os autores de um livro usando seu ID
-GET /bookAuthor/findLink/author/{authorId}/book/{bookId} procura se um autor e um livro tem algum link
-POST	/bookAuthor	Cria um link entre um autor e um livro
-DELETE	/bookAuthor/author/{authorId}/book/{bookId}	remove o link entre um author e seu livro
+-GET	/bookAuthor	Lista todos os autores e os livros de cada autor
+-GET	/bookAuthor/{id}	Retorna informações de um autor e seus livros
+-GET	/bookAuthor/books/{authorId}	Retorna os livros de um autor usando seu ID
+-GET	/bookAuthor/authors/{bookId}	Retorna os autores de um livro usando seu ID
+-GET /bookAuthor/findLink/author/{authorId}/book/{bookId} procura se um autor e um livro tem algum link
+-POST	/bookAuthor	Cria um link entre um autor e um livro
+-DELETE	/bookAuthor/author/{authorId}/book/{bookId}	remove o link entre um author e seu livro
 
 **Padrão de Arquitetura**
 O projeto segue o padrão MVC (Model-View-Controller), organizado em camadas independentes:
