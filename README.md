@@ -65,6 +65,7 @@ DELETE	/user/{id}	Remove um usuário
 
 **Livros**
 Método	Endpoint	Descrição
+
 GET	/book	Lista todos os livros
 GET	/book/{id}	Retorna um livro específico
 POST	/book	Adiciona um novo livro
