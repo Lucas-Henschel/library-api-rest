@@ -3,6 +3,44 @@
 API REST desenvolvida em **Java 21** com **Spring Boot**, projetada para gerenciar recursos de uma biblioteca — incluindo **usuários**, **autores** e **livros**.  
 A aplicação segue uma **arquitetura em camadas**, priorizando **organização**, **escalabilidade** e **facilidade de manutenção**.
 
+```mermaid
+classDiagram
+  class UserEntity {
+    -Long id
+    -String name
+    -String login
+    -String password
+    -LocalDateTime createdAt
+  }
+
+  class BookEntity {
+    -Long id
+    -String title
+    -String description
+    -Double price
+    -Integer pages
+    -String language
+    -LocalDateTime createdAt
+  }
+
+  class AuthorEntity {
+    -Long id
+    -String name
+    -LocalDate birthDate
+    -String nationality
+    -String biography
+    -LocalDateTime createdAt
+  }
+
+  class BookAuthorEntity {
+    -Long id
+  }
+
+  %% Relações
+  BookAuthorEntity "N" *-- "1" BookEntity : contém
+  BookAuthorEntity "N" *-- "1" AuthorEntity : contém
+```
+
 ---
 
 ## 🎯 Objetivo
