@@ -6,6 +6,7 @@ import com.library.entities.BookAuthorEntity;
 import com.library.entities.BookEntity;
 import com.library.repositories.BookAuthorRepository;
 
+import com.library.services.exceptions.DatabaseException;
 import com.library.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,12 @@ public class BookAuthorService {
     }
 
     public BookAuthorEntity create(CreateBookAuthorRequestDTO createBookAuthor) {
+        Optional<BookAuthorEntity> findBookAuthor = bookAuthorRepository.findByAuthorIdAndBookId(createBookAuthor.getAuthorId(), createBookAuthor.getBookId());
+
+        if (findBookAuthor.isPresent()) {
+            throw new DatabaseException("Vínculo do livro e autor já existe");
+        }
+
         BookEntity book = bookService.findById(createBookAuthor.getBookId());
         AuthorEntity author = authorService.findById(createBookAuthor.getAuthorId());
 
@@ -55,8 +62,7 @@ public class BookAuthorService {
     }
 
     public void removeLink(Long authorId, Long bookId) {
-        bookService.findById(bookId);
-        authorService.findById(authorId);
+        findByBookIdAndAuthorId(bookId, authorId);
 
         bookAuthorRepository.deleteByBookIdAndAuthorId(bookId, authorId);
     }
