@@ -44,11 +44,7 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler({
-        ConstraintViolationException.class,
-        DataIntegrityViolationException.class,
-        MethodArgumentNotValidException.class
-    })
+    @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<StandardError> constraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
         List<String> errors = new ArrayList<>();
         errors.add("Error Violation");

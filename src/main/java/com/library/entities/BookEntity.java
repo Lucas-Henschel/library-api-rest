@@ -29,7 +29,7 @@ public class BookEntity {
     @Size(max = 45, message = "A descrição pode ter no máximo 45 caracteres")
     private String description;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 10)
     @NotNull(message = "O preço é obrigatório")
     @DecimalMin(value = "0.0", inclusive = false, message = "O preço deve ser maior que zero")
     private Double price;

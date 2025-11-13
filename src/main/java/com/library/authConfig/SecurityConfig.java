@@ -41,6 +41,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(customizer -> {
                 customizer.requestMatchers(HttpMethod.GET, "/").permitAll();
                 customizer.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                customizer.requestMatchers(HttpMethod.POST, "/user").permitAll();
                 customizer.requestMatchers("/h2-console/**").permitAll();
                 customizer.anyRequest().authenticated();
             })
