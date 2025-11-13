@@ -43,36 +43,26 @@ public class CustomFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String tokenHeader = request.getHeader("token");
 
-        if (tokenHeader == null) {
-            WriteErrorResponse.writeErrorResponse(
-                response,
-                request,
-                HttpStatus.FORBIDDEN,
-                new ResourceNotFoundException("Token não foi informado"),
-                objectMapper
-            );
-
-            return;
-        }
-
-        try {
-            Long userId = tokenService.validateToken(tokenHeader);
-            UserEntity userEntity = userService.findById(userId);
-
-            CurrentUserDTO currentUserEntityAuthentication = new CurrentUserDTO(
-                userEntity.getId(),
-                userEntity.getName(),
-                userEntity.getLogin()
-            );
-
-            currentUserAuthentication.setCurrentUserEntity(currentUserEntityAuthentication);
-            SecurityContextHolder.getContext().setAuthentication(currentUserAuthentication);
-        } catch (JWTDecodeException | JWTCreationException | ResponseStatusException ex) {
-            WriteErrorResponse.writeErrorResponse(response, request, HttpStatus.FORBIDDEN, ex, objectMapper);
-            return;
-        } catch (ResourceNotFoundException ex) {
-            WriteErrorResponse.writeErrorResponse(response, request, HttpStatus.NOT_FOUND, ex, objectMapper);
-            return;
+        if (tokenHeader != null) {
+            try {
+                Long userId = tokenService.validateToken(tokenHeader);
+                UserEntity userEntity = userService.findById(userId);
+    
+                CurrentUserDTO currentUserEntityAuthentication = new CurrentUserDTO(
+                    userEntity.getId(),
+                    userEntity.getName(),
+                    userEntity.getLogin()
+                );
+    
+                currentUserAuthentication.setCurrentUserEntity(currentUserEntityAuthentication);
+                SecurityContextHolder.getContext().setAuthentication(currentUserAuthentication);
+            } catch (JWTDecodeException | JWTCreationException | ResponseStatusException ex) {
+                WriteErrorResponse.writeErrorResponse(response, request, HttpStatus.FORBIDDEN, ex, objectMapper);
+                return;
+            } catch (ResourceNotFoundException ex) {
+                WriteErrorResponse.writeErrorResponse(response, request, HttpStatus.NOT_FOUND, ex, objectMapper);
+                return;
+            }
         }
 
         filterChain.doFilter(request, response);
