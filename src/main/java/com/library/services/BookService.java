@@ -8,6 +8,7 @@ import com.library.repositories.BookRepository;
 import com.library.services.exceptions.DatabaseException;
 import com.library.services.exceptions.ResourceNotFoundException;
 import com.library.services.exceptions.UnprocessableEntityException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class BookService {
         UpdateValueHelper.updateIfNotNull(entity::setLanguage, updateBook.getLanguage());
     }
 
-    public BookEntity create(CreateBookRequestDTO createBook) {
+    public BookEntity create(@Valid CreateBookRequestDTO createBook) {
         Optional<BookEntity> findBookByTitle = bookRepository.findByTitle(createBook.getTitle());
 
         if (findBookByTitle.isPresent()) {
