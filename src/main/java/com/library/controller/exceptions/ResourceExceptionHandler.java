@@ -43,7 +43,7 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    /*@ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<StandardError> constraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
         List<String> errors = new ArrayList<>();
         errors.add("Error Violation");
@@ -51,18 +51,32 @@ public class ResourceExceptionHandler {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError(Instant.now(), status.value(), errors, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
-    }
+    }*/
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<StandardError> handleValidationExceptions(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ResponseEntity<StandardError> handleValidationExceptions(
+            MethodArgumentNotValidException e,
+            HttpServletRequest request
+    ) {
+
         List<String> errors = new ArrayList<>();
-        e.getBindingResult().getAllErrors().forEach((error) -> {
-            String errorMessage = error.getDefaultMessage();
-            errors.add(errorMessage);
+
+        e.getBindingResult().getFieldErrors().forEach(error -> {
+            String field = error.getField();
+            String message = error.getDefaultMessage();
+            errors.add("O campo '" + field + "' " + message);
         });
 
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-        StandardError err = new StandardError(Instant.now(), status.value(), errors, e.getMessage(), request.getRequestURI());
+
+        StandardError err = new StandardError(
+                Instant.now(),
+                status.value(),
+                errors,
+                "Erro de validação nos campos",
+                request.getRequestURI()
+        );
+
         return ResponseEntity.status(status).body(err);
     }
 
@@ -76,15 +90,32 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public ResponseEntity<StandardError> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e, HttpServletRequest request) {
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<StandardError> handleConstraintViolation(
+            ConstraintViolationException e,
+            HttpServletRequest request
+    ) {
+
         List<String> errors = new ArrayList<>();
-        errors.add(e.getMessage());
+
+        e.getConstraintViolations().forEach(violation -> {
+            String message = violation.getMessage();
+            errors.add(message);
+        });
 
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-        StandardError err = new StandardError(Instant.now(), status.value(), errors, e.getMessage(), request.getRequestURI());
+
+        StandardError err = new StandardError(
+                Instant.now(),
+                status.value(),
+                errors,
+                "Erro de validação na entidade",
+                request.getRequestURI()
+        );
+
         return ResponseEntity.status(status).body(err);
     }
+
 
     @ExceptionHandler(JWTCreationException.class)
     public ResponseEntity<StandardError> handleJWTCreationException(JWTCreationException e, HttpServletRequest request) {
