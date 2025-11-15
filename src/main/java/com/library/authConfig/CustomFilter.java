@@ -5,7 +5,6 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.library.controller.exceptions.StandardError;
 import com.library.dto.auth.CurrentUserDTO;
 import com.library.entities.UserEntity;
 import com.library.helpers.WriteErrorResponse;
@@ -25,8 +24,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.util.List;
 
 @Component
 public class CustomFilter extends OncePerRequestFilter {
@@ -50,13 +47,13 @@ public class CustomFilter extends OncePerRequestFilter {
             try {
                 Long userId = tokenService.validateToken(tokenHeader);
                 UserEntity userEntity = userService.findById(userId);
-
+    
                 CurrentUserDTO currentUserEntityAuthentication = new CurrentUserDTO(
                     userEntity.getId(),
                     userEntity.getName(),
                     userEntity.getLogin()
                 );
-
+    
                 currentUserAuthentication.setCurrentUserEntity(currentUserEntityAuthentication);
                 SecurityContextHolder.getContext().setAuthentication(currentUserAuthentication);
             } catch (JWTDecodeException | JWTCreationException | ResponseStatusException ex) {

@@ -1,5 +1,6 @@
 package com.library.authConfig;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,6 +30,9 @@ public class SecurityConfig {
     private SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
     private SimpleUrlLogoutSuccessHandler logoutSuccessHandler = new SimpleUrlLogoutSuccessHandler();
 
+    @Autowired
+    private CustomAuthEntryPoint customAuthEntryPoint;
+
     @Bean
     public SecurityFilterChain securityFilterChain(
         HttpSecurity http,
@@ -38,9 +42,13 @@ public class SecurityConfig {
         return http
             .csrf(AbstractHttpConfigurer::disable)
             .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+            .exceptionHandling(ex ->
+                ex.authenticationEntryPoint(customAuthEntryPoint)
+            )
             .authorizeHttpRequests(customizer -> {
                 customizer.requestMatchers(HttpMethod.GET, "/").permitAll();
                 customizer.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                customizer.requestMatchers(HttpMethod.POST, "/user").permitAll();
                 customizer.requestMatchers("/h2-console/**").permitAll();
                 customizer.anyRequest().authenticated();
             })

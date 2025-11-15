@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.library.dto.auth.CurrentUserDTO;
 import com.library.dto.user.CreateUserRequestDTO;
 import com.library.dto.user.UpdateUserRequestDTO;
 import com.library.entities.UserEntity;
@@ -38,8 +39,12 @@ public class UserService {
         return userRepository.findByLogin(login);
     }
 
-    public void delete(Long id) {
+    public void delete(CurrentUserDTO currentUser, Long id) {
         try {
+            if (currentUser.getId().equals(id)) {
+                throw new DatabaseException("Usuário não pode deletar a si mesmo");
+            }
+
             findById(id);
             userRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {

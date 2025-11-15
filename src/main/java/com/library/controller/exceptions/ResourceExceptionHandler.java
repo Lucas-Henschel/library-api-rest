@@ -9,7 +9,6 @@ import com.library.services.exceptions.UnprocessableEntityException;
 import jakarta.servlet.http.HttpServletRequest;
 
 import jakarta.validation.ConstraintViolationException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -44,11 +43,7 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler({
-        ConstraintViolationException.class,
-        DataIntegrityViolationException.class,
-        MethodArgumentNotValidException.class
-    })
+    @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<StandardError> constraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
         List<String> errors = new ArrayList<>();
         errors.add("Error Violation");
