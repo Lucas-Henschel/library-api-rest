@@ -3,6 +3,7 @@ package com.library.services;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -65,7 +66,7 @@ public class UserService {
         UpdateValueHelper.updateIfNotNull(entity::setPassword, updateUser.getPassword());
     }
 
-    public UserEntity create(CreateUserRequestDTO createUser) {
+    public UserEntity create(@Valid CreateUserRequestDTO createUser) {
         Optional<UserEntity> findUserByLogin = userRepository.findByLogin(createUser.getLogin());
 
         if (findUserByLogin.isPresent()) {
