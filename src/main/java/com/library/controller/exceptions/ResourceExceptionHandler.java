@@ -55,10 +55,9 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> handleValidationExceptions(
-            MethodArgumentNotValidException e,
-            HttpServletRequest request
+        MethodArgumentNotValidException e,
+        HttpServletRequest request
     ) {
-
         List<String> errors = new ArrayList<>();
 
         e.getBindingResult().getFieldErrors().forEach(error -> {
@@ -70,11 +69,11 @@ public class ResourceExceptionHandler {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 
         StandardError err = new StandardError(
-                Instant.now(),
-                status.value(),
-                errors,
-                "Erro de validação nos campos",
-                request.getRequestURI()
+            Instant.now(),
+            status.value(),
+            errors,
+            "Erro de validação nos campos",
+            request.getRequestURI()
         );
 
         return ResponseEntity.status(status).body(err);
@@ -92,10 +91,9 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<StandardError> handleConstraintViolation(
-            ConstraintViolationException e,
-            HttpServletRequest request
+        ConstraintViolationException e,
+        HttpServletRequest request
     ) {
-
         List<String> errors = new ArrayList<>();
 
         e.getConstraintViolations().forEach(violation -> {
@@ -106,11 +104,11 @@ public class ResourceExceptionHandler {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 
         StandardError err = new StandardError(
-                Instant.now(),
-                status.value(),
-                errors,
-                "Erro de validação na entidade",
-                request.getRequestURI()
+            Instant.now(),
+            status.value(),
+            errors,
+            "Erro de validação na entidade",
+            request.getRequestURI()
         );
 
         return ResponseEntity.status(status).body(err);

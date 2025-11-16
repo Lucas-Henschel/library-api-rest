@@ -27,6 +27,6 @@ public class CustomAuthEntryPoint implements AuthenticationEntryPoint {
         HttpServletResponse response,
         AuthenticationException authException
     ) throws IOException {
-        WriteErrorResponse.writeErrorResponse(response, request, HttpStatus.UNAUTHORIZED, new IOException("Unauthorized"), objectMapper);
+        WriteErrorResponse.writeErrorResponse(response, request, HttpStatus.UNAUTHORIZED, new IOException("Token não informado"), objectMapper);
     }
 }
