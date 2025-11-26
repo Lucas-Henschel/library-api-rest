@@ -44,7 +44,7 @@ public class AuthService {
             }
         }
 
-        throw new ResourceNotFoundException("Login inválido");
+        throw new ResourceNotFoundException("Credenciais inválidas");
     }
 
     public boolean logout(HttpServletRequest request, HttpServletResponse response) {
