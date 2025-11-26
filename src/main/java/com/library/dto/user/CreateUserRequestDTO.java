@@ -14,5 +14,6 @@ public class CreateUserRequestDTO {
     @NotBlank
     private String login;
     @NotBlank
+    @Size(min = 8, max = 255, message = "A senha deve ter entre 8 e 255 caracteres")
     private String password;
 }
