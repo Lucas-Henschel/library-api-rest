@@ -54,7 +54,7 @@ public class ResourceExceptionHandler {
             errors.add("O campo '" + field + "' " + message);
         });
 
-        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        HttpStatus status = HttpStatus.BAD_REQUEST;
 
         StandardError err = new StandardError(
             Instant.now(),

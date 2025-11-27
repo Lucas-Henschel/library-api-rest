@@ -1,7 +1,6 @@
 package com.library.repositories;
 
 import com.library.entities.BookEntity;
-import com.library.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
