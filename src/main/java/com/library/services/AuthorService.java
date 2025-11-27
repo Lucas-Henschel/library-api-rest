@@ -40,6 +40,10 @@ public class AuthorService {
     }
 
     public AuthorEntity create(CreateAuthorRequestDTO createAuthor) {
+        if (!DateHelper.isValidDate(createAuthor.getBirthDate(), "yyyy-MM-dd")) {
+            throw new UnprocessableEntityException("Data de anivessário inválida. Formato yyyy-MM-dd");
+        }
+        
         AuthorEntity author = new AuthorEntity();
         author.setName(createAuthor.getName());
         author.setBirthDate(DateHelper.dateStringToLocalDate(createAuthor.getBirthDate()));
@@ -50,6 +54,10 @@ public class AuthorService {
     }
 
     public AuthorEntity update(Long id, UpdateAuthorRequestDTO updateAuthor) {
+        if (!DateHelper.isValidDate(updateAuthor.getBirthDate(), "yyyy-MM-dd")) {
+            throw new UnprocessableEntityException("Data de anivessário inválida. Formato yyyy-MM-dd");
+        }
+        
         AuthorEntity author = findById(id);
         updateData(author, updateAuthor);
 
