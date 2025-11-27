@@ -1,9 +1,13 @@
 package com.library.controller;
 
+import com.library.dto.author.AuthorResponseDTO;
+import com.library.dto.book.BookResponseDTO;
 import com.library.dto.bookAuthor.BookAuthorResponseDTO;
 import com.library.dto.bookAuthor.CreateBookAuthorRequestDTO;
 import com.library.entities.BookAuthorEntity;
+import com.library.mapper.AuthorMapper;
 import com.library.mapper.BookAuthorMapper;
+import com.library.mapper.BookMapper;
 import com.library.services.BookAuthorService;
 
 import jakarta.validation.Valid;
@@ -36,38 +40,38 @@ public class BookAuthorController {
         return ResponseEntity.ok().body(listBookAuthorResponse);
     }
 
+    @GetMapping(value = "/books/{authorId}")
+    public ResponseEntity<List<BookResponseDTO>> findAllLinksByAuthorId(@Valid @PathVariable("authorId") Long authorId) {
+        List<BookAuthorEntity> bookAuthorEntities = bookAuthorService.findAllLinksByAuthorId(authorId);
+
+        List<BookResponseDTO> listBooks = new ArrayList<>();
+
+        for (BookAuthorEntity bookAuthorEntity : bookAuthorEntities) {
+            listBooks.add(BookMapper.toDTO(bookAuthorEntity.getBook()));
+        }
+
+        return ResponseEntity.ok().body(listBooks);
+    }
+
+    @GetMapping(value = "/authors/{bookId}")
+    public ResponseEntity<List<AuthorResponseDTO>> findAllLinksByBookId(@Valid @PathVariable("bookId") Long bookId) {
+        List<BookAuthorEntity> bookAuthorEntities = bookAuthorService.findAllLinksByBookId(bookId);
+
+        List<AuthorResponseDTO> listAuthorsResponse = new ArrayList<>();
+
+        for (BookAuthorEntity bookAuthorEntity : bookAuthorEntities) {
+            listAuthorsResponse.add(AuthorMapper.toDTO(bookAuthorEntity.getAuthor()));
+        }
+
+        return ResponseEntity.ok().body(listAuthorsResponse);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<BookAuthorResponseDTO> findById(@Valid @PathVariable Long id) {
         BookAuthorEntity bookAuthorEntity = bookAuthorService.findById(id);
         BookAuthorResponseDTO bookAuthorResponseDTO = BookAuthorMapper.toDTO(bookAuthorEntity);
 
         return ResponseEntity.ok().body(bookAuthorResponseDTO);
-    }
-
-    @GetMapping(value = "/books/{authorId}")
-    public ResponseEntity<List<BookAuthorResponseDTO>> findAllLinksByAuthorId(@Valid @PathVariable("authorId") Long authorId) {
-        List<BookAuthorEntity> bookAuthorEntities = bookAuthorService.findAllLinksByAuthorId(authorId);
-
-        List<BookAuthorResponseDTO> listBookAuthorResponse = new ArrayList<>();
-
-        for (BookAuthorEntity bookAuthorEntity : bookAuthorEntities) {
-            listBookAuthorResponse.add(BookAuthorMapper.toDTO(bookAuthorEntity));
-        }
-
-        return ResponseEntity.ok().body(listBookAuthorResponse);
-    }
-
-    @GetMapping(value = "/authors/{bookId}")
-    public ResponseEntity<List<BookAuthorResponseDTO>> findAllLinksByBookId(@Valid @PathVariable("bookId") Long bookId) {
-        List<BookAuthorEntity> bookAuthorEntities = bookAuthorService.findAllLinksByBookId(bookId);
-
-        List<BookAuthorResponseDTO> listBookAuthorResponse = new ArrayList<>();
-
-        for (BookAuthorEntity bookAuthorEntity : bookAuthorEntities) {
-            listBookAuthorResponse.add(BookAuthorMapper.toDTO(bookAuthorEntity));
-        }
-
-        return ResponseEntity.ok().body(listBookAuthorResponse);
     }
 
     @GetMapping(value = "/findLink/author/{authorId}/book/{bookId}")
