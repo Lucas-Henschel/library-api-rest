@@ -8,6 +8,7 @@ import com.library.helpers.UpdateValueHelper;
 import com.library.repositories.AuthorRepository;
 import com.library.services.exceptions.DatabaseException;
 import com.library.services.exceptions.ResourceNotFoundException;
+import com.library.services.exceptions.UnprocessableEntityException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

@@ -15,8 +15,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,17 +40,7 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(Instant.now(), status.value(), errors, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
-
-    /*@ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<StandardError> constraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
-        List<String> errors = new ArrayList<>();
-        errors.add("Error Violation");
-
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        StandardError err = new StandardError(Instant.now(), status.value(), errors, e.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(status).body(err);
-    }*/
-
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> handleValidationExceptions(
         MethodArgumentNotValidException e,
