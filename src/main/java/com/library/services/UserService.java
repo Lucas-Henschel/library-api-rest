@@ -55,6 +55,10 @@ public class UserService {
 
     public UserEntity update(Long id, UpdateUserRequestDTO updateUser) {
         UserEntity entity = findById(id);
+
+        String passwordEncryption = passwordEncoder.encode(updateUser.getPassword());
+        updateUser.setPassword(passwordEncryption);
+        
         updateData(entity, updateUser);
 
         return userRepository.save(entity);
