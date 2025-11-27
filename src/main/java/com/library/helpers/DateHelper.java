@@ -18,4 +18,14 @@ public class DateHelper {
 
         return LocalDate.parse(dateString, formatter);
     }
+
+    public static boolean isValidDate(String dateString, String pattern) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            LocalDate.parse(dateString, formatter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
